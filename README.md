@@ -17,49 +17,66 @@ CERT KAPE is a forensic tool designed to automate the extraction of digital arti
    git clone https://github.com/yourusername/cert-kape.git
    cd cert-kape
    ```
-2. Install dependencies:
+2. Create a `requirements.txt` file with the following dependencies:
+   ```txt
+   psutil
+   pyzipper
+   ```
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-3. Ensure PowerShell execution policy allows running scripts:
+4. Build the executable for easier execution:
+   ```bash
+   pyinstaller --onefile --add-data "KAPE:." finalBundled.py
+   ```
+   The generated executable will be in the `dist/` directory.
+
+## Update Dependencies
+To update dependencies, follow these steps:
+1. Run the `Get-KAPEUpdate.ps1` script located in the `KAPE` directory of the cloned repository to update the tool(execute with admin privileges):
    ```powershell
-   Set-ExecutionPolicy Bypass -Scope Process -Force
+   ./KAPE/Get-KAPEUpdate.ps1
+   ```
+2. Recompile the executable:
+   ```bash
+   pyinstaller --onefile --add-data "KAPE:." finalBundled.py
    ```
 
 ## Usage
-Run the tool with different options:
-```bash
-python cert_kape.py -o <output_path> -s <source_path> -t <targets> -dc -ns -u -ut
+The executable generated in the `dist/` directory can be used on victim systems to collect data.
+
+### Running the Executable
+#### Using GUI
+Run the executable as an administrator by double-clicking it.
+
+#### Using PowerShell
+```powershell
+./finalBundled.exe
 ```
 
-### Command-line Options
-| Option   | Description |
-|----------|-------------|
-| `-o <path>` | Set the output path for collected artifacts (default: current directory). |
-| `-s <path>` | Specify the source path for data collection. |
-| `-t <targets>` | Define additional targets for collection. |
-| `-dc` | Disable DNS cache collection (enabled by default). |
-| `-ns` | Disable netstat collection (enabled by default). |
-| `-u` | Update KAPE files only. |
-| `-ut` | Update the tool using `Get-KAPEUpdate.ps1`. |
-
-## Updating KAPE
-To update the bundled KAPE version:
-```bash
-python updateDependencies.py
+#### Specifying Output or Source Path
+```powershell
+./finalBundled.exe -o <output-path> -s <source-path>
 ```
-This script:
-- Checks for updates using `Get-KAPEUpdate.ps1`
-- Replaces `KAPE.zip` if a new version is available
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+#### Collecting Specific Targets
+```powershell
+./finalBundled.exe -t <targets comma separated>
+```
 
-## Contributing
-Contributions are welcome! Please fork the repository, make changes, and submit a pull request.
+#### Updating KAPE Files and Tool
+```powershell
+./finalBundled.exe -ut -u
+```
+
+#### Disabling Netstat and DNS Collection
+```powershell
+./finalBundled.exe -dc -ns
+```
 
 ## Contact
-For support or issues, create an issue on GitHub or reach out to `your-email@example.com`.
+For support or issues, create an issue on GitHub or reach out to `kaurharmehar9717@example.com`.
 
 ---
 **Disclaimer:** This tool is intended for forensic and incident response use. Ensure compliance with local laws before using it.
