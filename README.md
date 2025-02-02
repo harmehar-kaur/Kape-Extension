@@ -34,9 +34,9 @@ CERT KAPE is a forensic tool designed to automate the extraction of digital arti
 
 ## Update Dependencies
 To update dependencies, follow these steps:
-1. Run the `Get-KAPEUpdate.ps1` script located in the `KAPE` directory of the cloned repository to update the tool:
+1. Run the `Get-KAPEUpdate.ps1` script located in the `KAPE` directory of the cloned repository to update the tool(execute with admin privileges):
    ```powershell
-   powershell -ExecutionPolicy Bypass -File KAPE/Get-KAPEUpdate.ps1
+   ./KAPE/Get-KAPEUpdate.ps1
    ```
 2. Recompile the executable:
    ```bash
