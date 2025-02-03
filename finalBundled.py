@@ -6,7 +6,6 @@ import subprocess
 import sys
 import psutil # type: ignore
 import pyzipper  # type: ignore
-import updateDependencies
 
 def print_help():
     print("CERT Kape: A Kape Extension to extract Windows Artefacts using targets SANS-Triage and Server Triage.")
@@ -257,11 +256,7 @@ def main():
         elif arg == "-dc":
             dc = False
         elif arg == "-ns":
-            ns = False
-        elif arg =="-d":
-            extract_kape()
-            updateDependencies.update_bundled_kape()
-            return 
+            ns = False 
         else:
             print(f"Unknown option: {arg}")
             print_help()
