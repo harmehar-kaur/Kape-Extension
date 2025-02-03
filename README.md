@@ -14,8 +14,8 @@ CERT KAPE is a forensic tool designed to automate the extraction of digital arti
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/cert-kape.git
-   cd cert-kape
+   git clone https://github.com/yourusername/Kape-Extension.git
+   cd Kape-Extension
    ```
 2. Install required libraries:
    ```bash
