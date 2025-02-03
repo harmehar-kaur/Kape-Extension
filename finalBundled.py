@@ -30,7 +30,7 @@ def extract_kape():
         print(f"[ERROR]KAPE bundle not found at: {bundle_dir}")
         sys.exit(1)
 
-    print("[SUCCESS]kape.exe located.")
+    # print("[SUCCESS]kape.exe located.")
     print("Running Kape...")
     return bundle_dir
 
@@ -65,7 +65,7 @@ def update_tool_script(kape_dir):
     try:
         os.chdir(kape_dir)
         subprocess.run(["powershell", "-ExecutionPolicy", "Bypass", "-File", script_path], check=True)
-        print("Tool updated successfully using getupdate.ps1.")
+        print("Tool updated successfully using Get-KAPEUpdate.ps1.")
         os.chdir(current_dir)
     except subprocess.CalledProcessError as e:
         print(f"Error while updating the tool. Exit code: {e.returncode}")
