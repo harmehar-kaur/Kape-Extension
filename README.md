@@ -39,7 +39,7 @@ To update dependencies, follow these steps:
    ```
 
 ## Usage
-The executable generated in the `dist/` directory can be used on victim systems to collect data.
+The executable generated in the `dist/` directory can be used on victim systems to collect data. Transfer the executable into a USB or a share with the victim system owner(in case of remote acquisition) and follow the steps as followed for collecting the evidence as per the requirements. 
 
 ### Running the Executable
 #### Using GUI
