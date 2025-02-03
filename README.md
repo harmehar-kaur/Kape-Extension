@@ -17,16 +17,11 @@ CERT KAPE is a forensic tool designed to automate the extraction of digital arti
    git clone https://github.com/yourusername/cert-kape.git
    cd cert-kape
    ```
-2. Create a `requirements.txt` file with the following dependencies:
-   ```txt
-   psutil
-   pyzipper
-   ```
-3. Install dependencies:
+2. Install required libraries:
    ```bash
    pip install -r requirements.txt
    ```
-4. Build the executable for easier execution:
+3. Build the executable for easier execution:
    ```bash
    pyinstaller --onefile --add-data "KAPE:." finalBundled.py
    ```
