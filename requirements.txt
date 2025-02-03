@@ -1,2 +1,3 @@
 psutil
 pyzipper
+pyinstaller
