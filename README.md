@@ -1,4 +1,4 @@
-# CERT KAPE - Windows Artifact Extraction Tool
+# Automate KAPE - Windows Artifact Extraction Tool
 
 ## Overview
 CERT KAPE is a forensic tool designed to automate the extraction of digital artifacts from Windows systems. It utilizes KAPE (Kroll Artifact Parser and Extractor) to gather critical forensic evidence efficiently. The tool supports additional functionalities such as network activity monitoring, DNS cache collection, automatic updates, and secure data packaging.
