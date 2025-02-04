@@ -129,53 +129,18 @@ def capture_netstat(output_dir):
 
 
 def capture_dns_cache(output_dir):
-    dns_txt_path = os.path.join(output_dir, "dns.txt")
     dns_csv_path = os.path.join(output_dir, "dns_cache.csv")
     
     try:
         print("[INFO] Capturing DNS cache information...")
-        subprocess.run("ipconfig /displaydns >> " + dns_txt_path, shell=True, check=True)
+        command = f'Get-DnsClientCache | Select-Object Entry, Name, Status, Type, TimeToLive, Data | Export-Csv -NoTypeInformation -Path "{dns_csv_path}"'
         
-        with open(dns_txt_path, 'r') as file:
-            lines = file.readlines()
-        
-        records = []
-        current_record = {}
-        
-        for line in lines:
-            line = line.strip()
-            
-            if line.startswith("Record Name"):
-                if current_record:
-                    records.append(current_record)
-                current_record = {"Record Name": line.split(": ")[1]}
-            elif line.startswith("Record Type"):
-                current_record["Record Type"] = line.split(": ")[1]
-            elif line.startswith("Time To Live"):
-                current_record["Time To Live"] = line.split(": ")[1]
-            elif line.startswith("Data Length"):
-                current_record["Data Length"] = line.split(": ")[1]
-            elif line.startswith("Section"):
-                current_record["Section"] = line.split(": ")[1]
-        
-        if current_record:
-            records.append(current_record)
-        
-        with open(dns_csv_path, 'w', newline='') as csvfile:
-            csvwriter = csv.DictWriter(csvfile, fieldnames=["Record Name", "Record Type", "Time To Live", "Data Length", "Section"])
-            csvwriter.writeheader()
-            csvwriter.writerows(records)
+        # Run PowerShell command
+        subprocess.run(["powershell", "-Command", command], shell=True, check=True)
         
         print(f"[SUCCESS] DNS cache information saved to: {dns_csv_path}")
     except Exception as e:
         print(f"[ERROR] Failed to capture DNS cache: {e}")
-    finally:
-        if os.path.exists(dns_txt_path):
-            try:
-                os.remove(dns_txt_path)
-                print(f"[INFO] DNS text file removed from: {dns_txt_path}")
-            except Exception as e:
-                print(f"[WARNING] Failed to remove the DNS text file: {e}")
 
 def zip_evidence(folder_path):
     desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
