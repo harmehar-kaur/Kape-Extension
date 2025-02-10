@@ -16,10 +16,9 @@ def print_help():
     print("-v        : Enable verbose mode for debugging.")
     print("-s <path> : Specify the source path from where data has to be collected.")
     print("-t <targets> : Specify additional targets to be collected (comma-separated).")
-    print("-dc       : Collect DNS-Cache Information. False by default")
-    print("-ns       : Collect netstat-enriched information. False by default.")
-    print("-u        : Update KAPE files only.")
-    print("-ut       : Update the tool by running the getupdate.ps1 script.")
+    print("-dc       : Collect DNS-Cache Information. True by default")
+    print("-ns       : Collect netstat-enriched information. True by default.")
+    print("-u        : Update KAPE")
 
 def extract_kape():
     bundle_dir = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
@@ -194,7 +193,6 @@ def main():
     ns=True
     dc=True
     update_files=False
-    update_tool=False
 
     args = sys.argv[1:]
     i = 0
@@ -216,8 +214,6 @@ def main():
             return
         elif arg == "-u":
             update_files = True
-        elif arg == "-ut":
-            update_tool = True
         elif arg == "-dc":
             dc = False
         elif arg == "-ns":
@@ -231,9 +227,8 @@ def main():
     extracted_kape_path = extract_kape()
     if update_files:
         update_kape_files(extracted_kape_path)
-    if update_tool:
         update_tool_script(extracted_kape_path)
-    # If no output path is provided, set it to the KAPE extraction location
+        return
     
     if output_path is None:
         output_path = os.path.join(extracted_kape_path, "Collected_Evidence")
